@@ -25,13 +25,13 @@ const Content = styled.p`{
     background-color: whitesmoke;
 }`
 
-const Main = styled( Heading )`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 8%;
-    background-color: whitesmoke;
-    margin-top: 5%;
-`
+// const Main = styled( Heading )`
+//     display: flex;
+//     justify-content: center;
+//     margin-bottom: 8%;
+//     background-color: whitesmoke;
+//     margin-top: 5%;
+// `
 const Roadmap = () => {
     return (
         <Wrapper>

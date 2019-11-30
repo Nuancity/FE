@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import styled from 'styled-components';
 import { Button, Paper } from '@material-ui/core';
@@ -6,9 +6,8 @@ import Post from '../components/Post.jsx';
 import Node from '../components/Node.jsx';
 import Notification  from '../components/Notification';
 import { withStyles } from '@material-ui/styles';
-import { notifications, posts, peopleNetwork, resources } from '../MockData.js';
-
-var faker = require('faker');
+import { notifications, peopleNetwork, resources } from '../MockData.js';
+import axios from 'axios';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -113,6 +112,18 @@ const Mid = styled.div`{
 const Dashboard = ( props ) => {
     const { classes } = props;
     const [ view, setView ] = useState( 'newsfeed' );
+    const [ posts, setPosts ] = useState( [] );
+
+    const getPosts = () => {
+        axios
+           .get( 'http://localhost:5000/api/posts' )
+           .then( res => setPosts( res.data.allPosts ))
+           .catch( err => console.log( err ) );
+     };
+
+     useEffect( () => {
+        getPosts();
+    }, [ posts ] ); 
 
     return (
         <Wrapper>
@@ -181,7 +192,6 @@ const Dashboard = ( props ) => {
                                             classification = { datum.classification }
                                             requestDate = { datum.requestDate }
                                             decisionDate = { datum.decisionDate }
-                                            avatar = { faker.internet.avatar() }
                                         />
                                     )
                                 })

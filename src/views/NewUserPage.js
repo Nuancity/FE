@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React /* { useState, useEffect } */ from 'react';
 import styled from 'styled-components';
 import SearchTab from '../components/SearchTab';
 import { topics } from '../MockData.js';
@@ -80,16 +80,7 @@ const NextButton = styled.button`{
 
 const NewUserPage = ( props ) => {
     const { data, session } = props;
-    const [ userTopics, setUserTopics ] = useState( [] );
-
-    useEffect( ( ) => {
-        const options = { decrypt: false }
-        session.getFile('userTopics.json', options )
-        .then( ( file )  => {
-            var topic = JSON.parse(file || '[]')
-            setUserTopics( topic );
-        })
-    }, [ session ] ) 
+    // const [ userTopics, setUserTopics ] = useState( [] );
 
     return (
         <Div>
@@ -159,11 +150,11 @@ const NewUserPage = ( props ) => {
                     </Bottom>
                 </Div>
             }
-            <Div>
+            {/* <Div>
                 {
                     userTopics && <h1> { userTopics } </h1>
                 }
-            </Div>
+            </Div> */}
         </Div>
     )
 }
