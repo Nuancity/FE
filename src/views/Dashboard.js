@@ -113,13 +113,34 @@ const Dashboard = ( props ) => {
     const { classes } = props;
     const [ view, setView ] = useState( 'newsfeed' );
     const [ posts, setPosts ] = useState( [] );
+    const [ newPost, setNewPost] = useState( null );
+    // const [ notifs, setNotifs ] = useState( [] );
 
     const getPosts = () => {
         axios
            .get( 'http://localhost:5000/api/posts' )
-           .then( res => setPosts( res.data.allPosts ))
+           .then( res => setPosts( res.data ))
            .catch( err => console.log( err ) );
      };
+
+     const addPostChangeHandler = ( e ) => {
+         e.preventDefault();
+         setNewPost( e.target.value );
+     }
+
+     const submitNewPost = ( data ) => {
+         axios
+            .post( 'http://localhost:5000/api/posts', newPost )
+            .then( res => setPosts( res.data ) )
+            .catch( err => console.log( err ) ); 
+     }
+
+    //  const getNotifs = ( ) => {
+    //      axios
+    //         .get( 'http://localhost:5000/api/posts' )
+    //         .then( res => setNotifs( res.data ) )
+    //         .catch( err => console.log( err ) );
+    //  }
 
      useEffect( () => {
         getPosts();
@@ -164,15 +185,19 @@ const Dashboard = ( props ) => {
                             posts.map( post => {
                                 return (
                                     <Post 
-                                        showComments = { false }
+                                        addPostChangeHandler = { addPostChangeHandler }
+                                        submitNewPost = { submitNewPost }
+
                                         isParentPost = { true }
+                                        showComments = { false }
+                                        
                                         avatar = { post.avatar }
-                                        time = { post.time }
                                         username = { post.username }
+
+                                        time = { post.created_at }
                                         content = { post.content }
-                                        commentCount = { post.commentsCount }
-                                        protestCount = { post.commentsCount }
-                                        extensionCount = { post.commentsCount }
+                                        fork_count = { post.commentsCount }
+                                        reaction_count = { post.commentsCount }
                                     />
                                 )
                             })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TimeStamp from './TimeStamp.jsx';
 import IconSmallButton from './IconSmallButton.jsx';
@@ -6,6 +6,7 @@ import { Avatar } from './Avatar.jsx';
 import { Link, TextField } from '@material-ui/core';
 import { posts } from '../MockData.js';
 import { withStyles } from '@material-ui/styles';
+import axios from 'axios';
 
 const Wrapper = styled.div`{
     width: 85%;
@@ -83,6 +84,20 @@ const styles = () => ({
 
 const Post = ( props ) => {
     const { classes } = props;
+    const [ newComment, setNewComment ] = useState( null );
+
+    const commentHandler = ( e ) => {
+        e.preventDefault();
+        setNewComment( e.target.value );
+    }
+
+    const submitComment = ( comment = newComment ) => {
+        axios
+           .post( 'http://localhost:5000/api/posts', comment )
+           .then( res => setNewComment( res.data ) )
+           .catch( err => console.log( err ) ); 
+    }
+
     return (
         <Wrapper>
             {/* <Tag></Tag> */}
@@ -91,7 +106,7 @@ const Post = ( props ) => {
                     <Avatar src = { props.avatar } />
                     <p> 
                         { props.username || 'Yanna Faith' }  <br/>
-                        <TimeStamp style={ { marginLeft: '2px'} }> { props.time || '12/31/1997 11:00am' } </TimeStamp>
+                        <TimeStamp style = { { marginLeft: '2px' } }> { props.timestamp || '12/31/1997 11:00am' } </TimeStamp>
                     </p>
                 </Details>
                 <IconSmallButton> <i class="far fa-share-alt"></i> </IconSmallButton> 
@@ -99,9 +114,8 @@ const Post = ( props ) => {
 
             <Content>
                 { 
-                    props.content || 'Maecenas et eros arcu. Aenean dignissim commodo dolor sit amet iaculis. Nullam libero orci, dignissim id est vitae, viverra dapibus ipsum. Nunc elementum vehicula lorem, vel malesuada nibh maximus at. Sed pellentesque justo orci, sit amet porttitor arcu sollicitudin sit amet. Aenean eu porttitor diam. Maecenas et eros arcu. Aenean dignissim commodo dolor sit amet iaculis. Nullam libero orci, dignissim id est vitae, viverra dapibus ipsum. Nunc elementum vehicula lorem, vel malesuada nibh maximus at. Sed pellentesque justo orci, sit amet porttitor arcu sollicitudin sit amet. Aenean eu porttitor diam. Maecenas et eros arcu. Aenean dignissim commodo dolor sit amet iaculis. Nullam libero orci, dignissim id est vitae, viverra dapibus ipsum. Nunc elementum vehicula lorem, vel malesuada nibh maximus at. Sed pellentesque justo orci, sit amet porttitor arcu sollicitudin sit amet. Aenean eu porttitor diam. Maecenas et eros arcu. Aenean dignissim commodo dolor sit amet iaculis. Nullam libero orci, dignissim id est vitae, viverra dapibus ipsum. Nunc elementum vehicula lorem, vel malesuada nibh maximus at. Sed pellentesque justo orci, sit amet porttitor arcu sollicitudin sit amet. Aenean eu porttitor diam.' 
+                    props.content 
                 }
-                
             </Content>
 
             <Reactions>
@@ -141,13 +155,12 @@ const Post = ( props ) => {
             <CommentBar>
                 <TextField 
                     multiline 
+                    margin = "normal"
+                    id = "outlined-name"
+                    placeholder = 'Extend or Contest'
                     className = { classes.commentBar } 
-                    id="outlined-name"
-                    // onChange={handleChange('name')}
-                    margin="normal"
-                    // variant=
-                    // placeholder='comment here now'
-                    // label="Comment here"
+                    onChange = { commentHandler }
+                    onSubmit = { submitComment }
                 />
             </CommentBar>
 
