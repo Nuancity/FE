@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React /* { useEffect } */ from 'react';
 import { useState } from 'react'
 import styled from 'styled-components';
 import { Button, Paper } from '@material-ui/core';
@@ -8,6 +8,7 @@ import Notification  from '../components/Notification';
 import { withStyles } from '@material-ui/styles';
 import { notifications, peopleNetwork, resources } from '../MockData.js';
 import axios from 'axios';
+
 
 const Wrapper = styled.div`
     height: 100%;
@@ -111,17 +112,31 @@ const Mid = styled.div`{
 
 const Dashboard = ( props ) => {
     const { classes } = props;
-    const [ view, setView ] = useState( 'newsfeed' );
+    const [ view, setView ] = useState( 'resources' );
     const [ posts, setPosts ] = useState( [] );
     const [ newPost, setNewPost] = useState( null );
-    // const [ notifs, setNotifs ] = useState( [] );
+    const [ filePath, setFilePath ] = useState( null );
 
-    const getPosts = () => {
+    const handleFileChange = e => {
+        // const file = e.target.files[ 0 ];
+        // console.log( filePath );
+        // const filePath = '/images/logovar.jpg';
+        const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg'};
+        setFilePath( filePath );
+    }
+  
+     const uploadImg = () => {
         axios
-           .get( 'http://localhost:5000/api/posts' )
-           .then( res => setPosts( res.data ))
-           .catch( err => console.log( err ) );
+           .post( 'http://localhost:5000/api/upload', filePath )
+           .catch(err => alert( err ));
      };
+
+    // const getPosts = () => {
+    //     axios
+    //        .get( 'http://localhost:5000/api/posts' )
+    //        .then( res => setPosts( res.data ))
+    //        .catch( err => console.log( err ) );
+    //  };
 
      const addPostChangeHandler = ( e ) => {
          e.preventDefault();
@@ -142,9 +157,9 @@ const Dashboard = ( props ) => {
     //         .catch( err => console.log( err ) );
     //  }
 
-     useEffect( () => {
-        getPosts();
-    }, [ posts ] ); 
+    //  useEffect( () => {
+    //     getPosts();
+    // }, [ posts ] ); 
 
     return (
         <Wrapper>
@@ -227,6 +242,12 @@ const Dashboard = ( props ) => {
 
                 { ( view === 'resources' ) && 
                     <SavedResources>
+                        < input 
+                         type = 'file'
+                         onChange = { handleFileChange }  
+                        />
+                        < button onClick = { uploadImg } style = {{ color: 'red' }} > CLICK </button>
+
                         {
                             resources.map( datum => {
                                 return (
