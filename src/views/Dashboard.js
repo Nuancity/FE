@@ -1,4 +1,4 @@
-import React /* { useEffect } */ from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import styled from 'styled-components';
 import { Button, Paper } from '@material-ui/core';
@@ -8,7 +8,6 @@ import Notification  from '../components/Notification';
 import { withStyles } from '@material-ui/styles';
 import { notifications, peopleNetwork, resources } from '../MockData.js';
 import axios from 'axios';
-
 
 const Wrapper = styled.div`
     height: 100%;
@@ -96,19 +95,25 @@ const Mid = styled.div`{
         // border: solid blue 2px
     }`
 
-    const styles = () => ({
-        resourceCard: {
-            margin: '4%',
-            elevation: '3',
-            width: '150px',
-            height: '170px',
-        },
-        button: {
-            '&:focus': {
-                backgroundColor: '#e7e7e7'
-            }
+    const File = styled.img`{
+        width: 150px;
+        height: 170px;
+        margin: 4%;
+    }`
+
+const styles = () => ({
+    resourceCard: {
+        margin: '4%',
+        elevation: '3',
+        width: '150px',
+        height: '170px',
+    },
+    button: {
+        '&:focus': {
+            backgroundColor: '#e7e7e7'
         }
-    })
+    }
+})
 
 const Dashboard = ( props ) => {
     const { classes } = props;
@@ -116,7 +121,33 @@ const Dashboard = ( props ) => {
     const [ posts, setPosts ] = useState( [] );
     const [ newPost, setNewPost] = useState( null );
     const [ filePath, setFilePath ] = useState( null );
+    const [ files, setFiles ] = useState( resources );
+    const [ notifs, setNotifs ] = useState( notifications );
 
+    const getFiles = () => {
+        axios.get( 'http://localhost:5000/api/upload' )
+        .then( res => setFiles( res.data ))
+        .catch( err => console.log( err ) );
+    };
+    
+    const getPosts = () => {
+        axios
+        .get( 'http://localhost:5000/api/posts' )
+        .then( res => setPosts( res.data ))
+        .catch( err => console.log( err ) );
+    };
+    
+    const getNotifs = ( ) => {
+        axios.get( 'http://localhost:5000/api/posts' )
+        .then( res => setNotifs( res.data ) )
+        .catch( err => console.log( err ) );
+    }
+    
+    const addPostChangeHandler = ( e ) => {
+        e.preventDefault();
+        setNewPost( e.target.value );
+    }
+    
     const handleFileChange = e => {
         // const file = e.target.files[ 0 ];
         // console.log( filePath );
@@ -124,42 +155,24 @@ const Dashboard = ( props ) => {
         const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg'};
         setFilePath( filePath );
     }
-  
-     const uploadImg = () => {
-        axios
-           .post( 'http://localhost:5000/api/upload', filePath )
-           .catch(err => alert( err ));
+    
+    const uploadImg = () => {
+        axios.post( 'http://localhost:5000/api/upload', filePath )
+        .catch(err => alert( err ));
+        getFiles();
+    };
+
+    const submitNewPost = ( data ) => {
+         axios.post( 'http://localhost:5000/api/posts', newPost )
+        .then( res => setPosts( res.data ) )
+        .catch( err => console.log( err ) ); 
      };
 
-    // const getPosts = () => {
-    //     axios
-    //        .get( 'http://localhost:5000/api/posts' )
-    //        .then( res => setPosts( res.data ))
-    //        .catch( err => console.log( err ) );
-    //  };
-
-     const addPostChangeHandler = ( e ) => {
-         e.preventDefault();
-         setNewPost( e.target.value );
-     }
-
-     const submitNewPost = ( data ) => {
-         axios
-            .post( 'http://localhost:5000/api/posts', newPost )
-            .then( res => setPosts( res.data ) )
-            .catch( err => console.log( err ) ); 
-     }
-
-    //  const getNotifs = ( ) => {
-    //      axios
-    //         .get( 'http://localhost:5000/api/posts' )
-    //         .then( res => setNotifs( res.data ) )
-    //         .catch( err => console.log( err ) );
-    //  }
-
-    //  useEffect( () => {
-    //     getPosts();
-    // }, [ posts ] ); 
+     useEffect( () => {
+        getFiles();
+        // getPosts();
+        // getNotifs();
+    }, [ files ] ); 
 
     return (
         <Wrapper>
@@ -181,7 +194,7 @@ const Dashboard = ( props ) => {
             <Mid> 
                 <DrawerContent>
                     { 
-                        notifications.map( notif => {
+                        notifs.map( notif => {
                             return (
                                 <Notification
                                     subject = { notif.person }
@@ -246,13 +259,16 @@ const Dashboard = ( props ) => {
                          type = 'file'
                          onChange = { handleFileChange }  
                         />
-                        < button onClick = { uploadImg } style = {{ color: 'red' }} > CLICK </button>
+                        < button onClick = { uploadImg } style = {{ color: 'red' , height: '50px'}} > CLICK </button>
 
                         {
-                            resources.map( datum => {
+                            files.map( datum => {
                                 return (
-                                    <Paper className = { classes.resourceCard } >
-                                    </Paper>
+                                    // <Paper 
+                                    //     className = { classes.resourceCard } >
+                                    // </Paper>
+                                    < File src = { datum.url } />
+                 
                                 )
                             })
                         }
