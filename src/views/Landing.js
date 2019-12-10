@@ -2,29 +2,31 @@ import { withStyles } from '@material-ui/core/styles';
 import { Paper, Button } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 
 const TopStyles = styled.div`
-    height: 88vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: whitesmoke;
+    height: 81vh;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-around;
+    // background-color: whitesmoke;
 `
     const Header = styled.h2`
         width: 55vw;
-        margin-left: 5%;
-        font-size: 1.7rem;
+        margin: 5%;
+        font-size: 2rem;
         letter-spacing: 3px;
-        margin-top: 2%;
-        color: 
-        #393a4d;
+        color: #393a4d;
+        border-bottom: solid #393a4d 2px;
     `
 
     const Photo = styled.img`
-        width: 50vw;
-        height: 60vh;
-        margin-left: 47%;
+        // width: 100vw;
+        height: 75vh;
+        // margin-left: 0%;
+        opacity: 0.7;
+        // border: solid 2px black;
+        margin-top: 6%;
     `
 
     const Buttons = styled.div`
@@ -32,6 +34,7 @@ const TopStyles = styled.div`
         display: flex;
         margin-left: 60%;
         justify-content: space-between;
+        opacity: 0.1;
     `
 
 const Features = styled.div`
@@ -40,6 +43,7 @@ const Features = styled.div`
     background-color: #f5f5f5;
     justify-content: space-around;
     padding-bottom: 5%;
+    opacity: 0.2;
 `
 
 const Bottom = styled.div`
@@ -57,6 +61,41 @@ const Bottom = styled.div`
         margin-left: 5%;
         margin-top: 5%;
     `
+
+const Modal = styled.div`{
+    height: 30vh;
+    width: 60vw;
+    border: none;
+    background-color: white;
+    position: absolute;
+    bottom: 170px;
+    margin-left: 15%;
+    // border: solid #381b57 1px;
+    box-shadow: 1px 1px 1px 1px gray;
+    box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
+}`
+
+const EmailButton = styled.button`{
+    height: 20px;
+    width: 50px;
+    border: solid purple 2px;
+}`
+
+const SubscribeInput = styled.input`{
+    border: solid black 1px;
+    height: 30px;
+    width: 20vw;
+    margin: 4%;
+    padding-left: 15px;
+    font-size: 1.5rem;
+}`
+
+const Footer = styled.div`{
+    width: 100vw;
+    height: 20vh;
+    // background-color: whitesmoke;
+}`
+
 // =============================================
 
 const styles = () => ({ 
@@ -81,7 +120,13 @@ const styles = () => ({
 
 
 const Landing = ( props ) => {
-    const { classes } = props
+    const { classes } = props;
+
+    const [ open, setOpen ]  = useState( true );
+
+    const handleModalChange = () => {
+        setOpen( !open ); 
+    };
 
 
 // =============================================
@@ -112,27 +157,51 @@ const Landing = ( props ) => {
     return (
         <div>
             <TopStyles >
-                <Header> Peer Review Reimagined. Social Learning Streamlined. Information Organized. Creativity Unleashed.</Header>
                 <Photo src='/images/undraw_posting.svg' alt='calender' />
                 {/* <Buttons >
                     <Button href='https://www.nuancity.com/topics' variant='outlined' size='large' color='primary' > Browse Content </Button> 
                     <Button className={ classes.browseButton } variant='outlined' size='large' color='primary' > Request Access </Button> 
                 </Buttons> */}
+
+                <Modal
+                    open = { open }
+                    onClose = { handleModalChange } >
+                    <Header> 
+                        Meet
+                        <span style = {{
+                                fontSize: '30px',
+                                color: '#381b57'
+                        }}> Nuancity </span> 
+                        In 2020.
+                    </Header>
+                    <div>
+                        <SubscribeInput />
+                        <Button
+                            variant = 'contained'
+                            color = 'primary'
+                            size = 'large'
+                        > Stay Updated 
+                        </Button>
+                    </div>
+                </Modal>
+
             </TopStyles>
 
-            <Features >
+            {/* <Features >
                 <FeatureCopy />
                 <FeatureCopy />
                 <FeatureCopy />
             </Features>
 
             <Bottom img='assets/images/geometric.jpg'>
-                <Chart src='https://res.cloudinary.com/color-shift-studio/image/upload/v1556155919/manaje/CreateDocument.gif' />
+                <Chart src='images/undraw_real.svg' />
                 <BottomButtons >
                     <Button href='/browse' variant='outlined' size='large' color='primary' > Browse Content </Button> 
                     <Button className={ classes.browseButton } variant='outlined' size='large' color='primary' > Request Access </Button> 
                 </BottomButtons>
-            </Bottom>
+            </Bottom> */}
+
+            {/* <Footer /> */}
         </div>
     )
 }

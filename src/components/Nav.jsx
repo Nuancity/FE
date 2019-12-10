@@ -8,19 +8,21 @@ import { yellow } from '@material-ui/core/colors';
 const Nav = styled.nav`
     top: 0;
     z-index: 1;
-    height: 7vh;
+    height: 8vh;
     display: flex;
     position: sticky;
     align-items: center;
     background-color: #393a4d;
+    // background-color: whitesmoke;
+    box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
     justify-content: space-between;
     // border: solid white 1px;
     // box-shadow: 0 2px 2px -1px rgba(0,0,0,0.25);
 `
-    // const Logo = styled.img`
-    //     height: 5vh;
-    //     margin-left: 20px;
-    // `
+    const Logo = styled.img`
+        height: 5vh;
+        margin-left: 20px;
+    `
 
     const NavLinks = styled.div`
         display: flex;
@@ -82,7 +84,7 @@ const LandingNav = ( props ) => {
                 </Button>
                 <Button 
                     className = { classes.upgradeButton } 
-                    size='small' 
+                    size='large' 
                     variant='outlined'
                     color='secondary'
                     onClick = { session.isUserSignedIn() ? props.signOut : props.signIn }
