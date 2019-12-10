@@ -21,7 +21,6 @@ time, mark, audio, video, input {
 	padding: 0;
 	border: 0;
 	font-size: 11px; /* originally 1rem */
-	font-family: 'Oxygen', sans-serif;
 	vertical-align: baseline;
 	font-weight: 900;
 }
@@ -48,4 +47,9 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+* {
+	font-family: 'Roboto','oxygen', sans-serif;
+	font-weight: 700;
 }
