@@ -70,17 +70,15 @@ const LandingNav = ( props ) => {
             <NavLinks>
                 <Button 
                     className = { classes.textLink } 
-                    href = '/'
                     variant='text' 
                     size='small'
-                    > About 
+                    > <Link to='/'> About </Link> 
                 </Button>
                 <Button 
                     className = { classes.textLink } 
-                    href = { `/roadmap` }
                     variant='text'  
                     size='small' 
-                    > Roadmap 
+                    > <Link to='/roadmap'> Roadmap </Link> 
                 </Button>
                 <Button 
                     className = { classes.textLink } 
