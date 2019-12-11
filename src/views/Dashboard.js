@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     i {
         color: #393a4d;
     }
+    opacity: .3;
 `
 const DashboardTop = styled.div`
     top: 7vh;
@@ -169,10 +170,8 @@ const Dashboard = ( props ) => {
      };
 
      useEffect( () => {
-        getFiles();
-        // getPosts();
-        // getNotifs();
-    }, [ files ] ); 
+        getPosts();
+    }, [] ); 
 
     return (
         <Wrapper>

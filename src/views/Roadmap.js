@@ -23,6 +23,7 @@ const Content = styled.p`{
     font-size: 1.3rem;
     padding: 2%;
     background-color: whitesmoke;
+    opacity: .1;
 }`
 
 // const Main = styled( Heading )`

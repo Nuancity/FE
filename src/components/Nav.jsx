@@ -68,25 +68,30 @@ const LandingNav = ( props ) => {
                 {/* <Logo src='/images/logovar.jpg'/>  */}
             </Button>
             <NavLinks>
-                <Button 
-                    className = { classes.textLink } 
-                    variant='text' 
-                    size='small'
-                    > <Link to='/'> About </Link> 
-                </Button>
-                <Button 
-                    className = { classes.textLink } 
-                    variant='text'  
-                    size='small' 
-                    > <Link to='/roadmap'> Roadmap </Link> 
-                </Button>
-                <Button 
-                    className = { classes.textLink } 
-                    href = { `/dashboard` }
-                    variant='text' 
-                    size='small'
-                    > Browse 
-                </Button>
+                <Link to = '/'>
+                    <Button 
+                        className = { classes.textLink } 
+                        variant='text' 
+                        size='small'
+                        > About
+                    </Button>
+                </Link>
+                <Link to = '/roadmap'>
+                    <Button 
+                        className = { classes.textLink } 
+                        variant='text' 
+                        size='small'
+                        > Roadmap
+                    </Button>
+                </Link>
+                <Link to = '/dashboard'>
+                    <Button 
+                        className = { classes.textLink } 
+                        variant='text' 
+                        size='small'
+                        > About
+                    </Button>
+                </Link>
                 <Button 
                     className = { classes.upgradeButton } 
                     size='large' 

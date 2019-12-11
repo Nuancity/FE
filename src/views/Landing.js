@@ -9,7 +9,7 @@ const TopStyles = styled.div`
     // display: flex;
     // flex-direction: column;
     // justify-content: space-around;
-    background-color: whitesmoke;
+    // background-color: whitesmoke;
     // background-image: url(/images/undraw_posting.svg);
     // background-repeat: no-repeat;
     // background-size: cover;
