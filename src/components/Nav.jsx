@@ -5,6 +5,10 @@ import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { yellow } from '@material-ui/core/colors';
 
+const deployedUrl = 'http://nuancity.com/';
+const localHost = 'http://localhost:3000/';
+const url = deployedUrl;
+
 const Nav = styled.nav`
     top: 0;
     z-index: 1;
@@ -65,21 +69,21 @@ const LandingNav = ( props ) => {
             <NavLinks>
                 <Button 
                     className = { classes.textLink } 
-                    href='http://localhost:3000/' 
+                    href = { `${ url }/` }
                     variant='text' 
                     size='small'
                     > About 
                 </Button>
                 <Button 
                     className = { classes.textLink } 
-                    href='http://localhost:3000/roadmap'
+                    href = { `${ url }/roadmap` }
                     variant='text'  
                     size='small' 
                     > Roadmap 
                 </Button>
                 <Button 
                     className = { classes.textLink } 
-                    href='http://localhost:3000/dashboard' 
+                    href = { `${ url }/dashboard` }
                     variant='text' 
                     size='small'
                     > Browse 
