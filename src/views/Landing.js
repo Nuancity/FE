@@ -5,17 +5,21 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 
 const TopStyles = styled.div`
-    height: 81vh;
+    height: 90vh;
     // display: flex;
     // flex-direction: column;
     // justify-content: space-around;
-    // background-color: whitesmoke;
+    background-color: whitesmoke;
+    // background-image: url(/images/undraw_posting.svg);
+    // background-repeat: no-repeat;
+    // background-size: cover;
 `
     const Header = styled.h2`
         width: 55vw;
-        margin: 5%;
-        font-size: 2rem;
-        letter-spacing: 3px;
+        margin-top: 5%;
+        margin-left: 3%;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
         color: #393a4d;
         border-bottom: solid #393a4d 2px;
     `
@@ -27,6 +31,7 @@ const TopStyles = styled.div`
         opacity: 0.7;
         // border: solid 2px black;
         margin-top: 6%;
+        opacity: .1;
     `
 
     const Buttons = styled.div`
@@ -68,11 +73,12 @@ const Modal = styled.div`{
     border: none;
     background-color: white;
     position: absolute;
-    bottom: 170px;
-    margin-left: 15%;
+    bottom: 100px;
+    margin-left: 30%;
     // border: solid #381b57 1px;
     box-shadow: 1px 1px 1px 1px gray;
     box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
+    opacity: 1;
 }`
 
 const EmailButton = styled.button`{
@@ -83,11 +89,12 @@ const EmailButton = styled.button`{
 
 const SubscribeInput = styled.input`{
     border: solid black 1px;
-    height: 30px;
+    height: 20px;
     width: 20vw;
     margin: 4%;
+    margin-left: 3%;
     padding-left: 15px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }`
 
 const Footer = styled.div`{
@@ -169,7 +176,7 @@ const Landing = ( props ) => {
                     <Header> 
                         Meet
                         <span style = {{
-                                fontSize: '30px',
+                                fontSize: '20px',
                                 color: '#381b57'
                         }}> Nuancity </span> 
                         In 2020.

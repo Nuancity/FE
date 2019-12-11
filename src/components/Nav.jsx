@@ -8,16 +8,18 @@ import { yellow } from '@material-ui/core/colors';
 const Nav = styled.nav`
     top: 0;
     z-index: 1;
-    height: 8vh;
+    height: 10vh;
     display: flex;
     position: sticky;
     align-items: center;
     background-color: #393a4d;
+    // background-color: black;
     // background-color: whitesmoke;
     box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
     justify-content: space-between;
     // border: solid white 1px;
     // box-shadow: 0 2px 2px -1px rgba(0,0,0,0.25);
+    // opacity: .2;
 `
     const Logo = styled.img`
         height: 5vh;
@@ -68,7 +70,7 @@ const LandingNav = ( props ) => {
                     size='small'
                     > About 
                 </Button>
-                <Button  
+                <Button 
                     className = { classes.textLink } 
                     href='http://localhost:3000/roadmap'
                     variant='text'  
