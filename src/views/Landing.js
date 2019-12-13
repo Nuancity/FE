@@ -58,8 +58,7 @@ const Landing = () => {
                                 fontSize: '20px',
                                 color: '#381b57'
                         }}> Nuancity 
-                        </span> 
-                        In 2020.
+                        </span> In 2020.
                     </Header>
                     <div>
                         <SubscribeInput />
