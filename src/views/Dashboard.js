@@ -253,13 +253,13 @@ const Dashboard = ( props ) => {
                 } 
 
                 { ( view === 'resources' ) && 
-                    <SavedResources>
-                        < input 
+                <div style = {{ margin: '3%' }}>
+                    < input 
                          type = 'file'
                          onChange = { handleFileChange }  
                         />
-                        < button onClick = { uploadImg } style = {{ color: 'red' , height: '50px'}} > CLICK </button>
-
+                    < button onClick = { uploadImg } style = {{ color: 'red' , height: '30px' }} > Upload </button>
+                    <SavedResources>
                         {
                             files.map( datum => {
                                 return (
@@ -272,6 +272,8 @@ const Dashboard = ( props ) => {
                             })
                         }
                   </SavedResources>
+
+                </div>
                 } 
             </Mid>
         </Wrapper>

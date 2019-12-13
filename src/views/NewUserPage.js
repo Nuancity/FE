@@ -11,7 +11,8 @@ import { topics } from '../MockData.js';
 const Wrapper = styled.div`{
     display: flex;
     align-items: flex-emd;
-    padding-bottom: 5%
+    padding-bottom: 5%;
+    height: 90vh;
 }`
 
 const Left = styled.div`
