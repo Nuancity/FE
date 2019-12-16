@@ -11,7 +11,7 @@ const Posts = styled.div`{
     flex-direction: column;
 }`
 
-const Newsfeed = () => {
+const Feed = () => {
     const [ posts, setPosts ] = useState( [] );
     const [ newPost, setNewPost] = useState( null );
 
@@ -45,11 +45,9 @@ const Newsfeed = () => {
                     <Post 
                         addPostChangeHandler = { addPostChangeHandler }
                         submitNewPost = { submitNewPost }
-
                         isParentPost = { true }
                         showComments = { false }
-
-                        time = { post.created_at }
+                        timestamp = { post.created_at }
                         content = { post.content }
                     />
                 )
@@ -59,4 +57,4 @@ const Newsfeed = () => {
     )
 }
 
-export default Newsfeed;
+export default Feed;

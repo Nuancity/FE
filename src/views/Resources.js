@@ -11,7 +11,6 @@ const SavedResources = styled.div`{
     flex-wrap: wrap;
     overflow: scroll;
     justify-content: center;
-    // border: solid blue 2px
 }`
 
 const File = styled.img`{

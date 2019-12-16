@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, /* useEffect */ } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Notification  from '../components/Notification';
 import { notifications } from '../MockData.js';
-
-import Resources from './Resources.jsx';
-import Newsfeed from './Newsfeed.jsx';
-import Network from './Network.jsx';
+import Resources from './Resources.js';
+import Feed from './Feed.js';
+import Network from './Network.js';
 
 const Wrapper = styled.div`
     height: 100%;
     i { color: #393a4d; }
-    opacity: .3;
 `
 const DashboardTop = styled.div`
     top: 7vh;
@@ -27,9 +24,7 @@ const DashboardTop = styled.div`
         width: 25vw;
         display: flex;
         align-items: center;
-        // background-color: #5e6080;
         justify-content: space-around;
-        // border-right: solid white 2px;
     `
     const DrawerContent = styled.div`{
         background-color: whitesmoke;
@@ -42,7 +37,6 @@ const DashboardTop = styled.div`
 
 const Mid = styled.div`{
     display: flex;
-    // border: solid red 2px;
     height: 180vh;
 }`
 
@@ -71,18 +65,8 @@ const styles = () => ({
 
 const Dashboard = ( props ) => {
     const { classes } = props;
-    const [ view, setView ] = useState( 'resources' );
-    const [ notifs, setNotifs ] = useState( notifications );
-    
-    // const getNotifs = () => {
-    //     axios.get( 'http://localhost:5000/api/notifs' )
-    //     .then( res => setNotifs( res.data ) )
-    //     .catch( err => console.log( err ) );
-    // };
-
-    // useEffect( () => {
-    //     getNotifs();
-    // }, [ notifs ] ); 
+    const [ view, setView ] = useState( 'feed' );
+    const [ notifs, /* setNotifs */ ] = useState( notifications );
 
     return (
         <Wrapper>
@@ -93,7 +77,7 @@ const Dashboard = ( props ) => {
                     <Button disabled > <i class="fas fa-envelope" style={ { fontSize: '1.2rem' } } /> </Button>
                 </DrawerMenu>
                 <MainMenu>
-                    <Button className = { classes.button } onClick= { () => setView( 'newsfeed' ) } > NewsFeed </Button>
+                    <Button className = { classes.button } onClick= { () => setView( 'feed' ) } > Feed </Button>
                     <Button className = { classes.button } onClick= { () => setView( 'network' ) } > Network </Button>
                     <Button className = { classes.button } onClick= { () => setView( 'resources' ) } > Resources </Button>
                     <Button className = { classes.button } disabled onClick= { () => setView( 'worldview' ) } > Worldview </Button>
@@ -117,21 +101,21 @@ const Dashboard = ( props ) => {
                     }
                 </DrawerContent>
 
-                { ( view === 'newsfeed' || view === 'writings' ) && 
-                    <Newsfeed />
+                { ( view === 'feed' ) && 
+                    <Feed />
                 } 
 
                 { ( view === 'network' ) && 
                     <Network />
                 } 
 
-                { ( view == 'resources' ) && 
+                { ( view === 'resources' ) && 
                     <Resources />
                 }
 
             </Mid>
         </Wrapper>
-    )
-}
+    );
+};
 
 export default withStyles( styles )( Dashboard );

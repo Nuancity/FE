@@ -6,10 +6,6 @@ import { withStyles } from '@material-ui/styles';
 import { yellow } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
 
-const deployedUrl = 'http://nuancity.com/';
-const localHost = 'http://localhost:3000/';
-const url = deployedUrl;
-
 const Nav = styled.nav`
     top: 0;
     z-index: 1;
@@ -18,19 +14,9 @@ const Nav = styled.nav`
     position: sticky;
     align-items: center;
     background-color: #393a4d;
-    // background-color: black;
-    // background-color: whitesmoke;
     box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.5);
     justify-content: space-between;
-    // border: solid white 1px;
-    // box-shadow: 0 2px 2px -1px rgba(0,0,0,0.25);
-    // opacity: .2;
 `
-    const Logo = styled.img`
-        height: 5vh;
-        margin-left: 20px;
-    `
-
     const NavLinks = styled.div`
         display: flex;
         justify-content: space-around;
@@ -64,39 +50,36 @@ const LandingNav = ( props ) => {
     const { session, classes } = props;
     return (
         <Nav>
-            <Button to='/' > 
-                {/* <Logo src='/images/logovar.jpg'/>  */}
-            </Button>
-            <NavLinks>
+            <NavLinks >
                 <Link to = '/'>
                     <Button 
                         className = { classes.textLink } 
-                        variant='text' 
-                        size='small'
+                        variant = 'text' 
+                        size = 'small'
                         > About
                     </Button>
                 </Link>
                 <Link to = '/roadmap'>
                     <Button 
                         className = { classes.textLink } 
-                        variant='text' 
-                        size='small'
+                        variant = 'text' 
+                        size = 'small'
                         > Roadmap
                     </Button>
                 </Link>
                 <Link to = '/dashboard'>
                     <Button 
                         className = { classes.textLink } 
-                        variant='text' 
-                        size='small'
+                        variant = 'text' 
+                        size = 'small'
                         > About
                     </Button>
                 </Link>
                 <Button 
                     className = { classes.upgradeButton } 
-                    size='large' 
-                    variant='outlined'
-                    color='secondary'
+                    size = 'large' 
+                    variant = 'outlined'
+                    color = 'secondary'
                     onClick = { session.isUserSignedIn() ? props.signOut : props.signIn }
                     > { session.isUserSignedIn() ? 'Logout' : 'Login' } 
                 </Button>
