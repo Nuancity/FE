@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react'
-import styled from 'styled-components';
-import { Button, Paper } from '@material-ui/core';
-import Post from '../components/Post.jsx';
-import Node from '../components/Node.jsx';
-import Notification  from '../components/Notification';
-import { withStyles } from '@material-ui/styles';
-import { notifications, peopleNetwork, resources } from '../MockData.js';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+import Notification  from '../components/Notification';
+import { notifications } from '../MockData.js';
+
+import Resources from './Resources.jsx';
+import Newsfeed from './Newsfeed.jsx';
+import Network from './Network.jsx';
 
 const Wrapper = styled.div`
     height: 100%;
-    i {
-        color: #393a4d;
-    }
+    i { color: #393a4d; }
     opacity: .3;
 `
 const DashboardTop = styled.div`
@@ -22,9 +21,7 @@ const DashboardTop = styled.div`
     display: flex;
     position: sticky;
     align-items: center;
-    // border: solid rebeccapurple 3px;
     background-color: whitesmoke;
-
 `
     const DrawerMenu = styled.div`
         width: 25vw;
@@ -58,50 +55,6 @@ const Mid = styled.div`{
     background-color: whitesmoke;
     `
 
-    const Posts = styled.div`{
-        overflow: scroll;
-        width: 80vw;
-        display: flex;
-        flex-direction: column;
-        // border: solid blue 2px
-    }`
-
-    const Network = styled.div`{
-        width: 80vw;
-        height: 100vh;
-        margin: 0 auto;
-        // border: solid red 2px;
-        // background-color: whitesmoke;
-       
-    }`
-        const ConnectionsList = styled.div`{
-            display: flex;
-            flex-wrap: wrap;
-            height: 90vh;
-            overflow: scroll;
-            // border: solid blue 2px
-            justify-content: space-around;
-            // width: 95%;
-            height: 100%;
-            background-color: white;
-        }`
-
-    const SavedResources = styled.div`{
-        width: 80vw;
-        height: 100vh;
-        display: flex;
-        flex-wrap: wrap;
-        overflow: scroll;
-        justify-content: center;
-        // border: solid blue 2px
-    }`
-
-    const File = styled.img`{
-        width: 150px;
-        height: 170px;
-        margin: 4%;
-    }`
-
 const styles = () => ({
     resourceCard: {
         margin: '4%',
@@ -119,59 +72,17 @@ const styles = () => ({
 const Dashboard = ( props ) => {
     const { classes } = props;
     const [ view, setView ] = useState( 'resources' );
-    const [ posts, setPosts ] = useState( [] );
-    const [ newPost, setNewPost] = useState( null );
-    const [ filePath, setFilePath ] = useState( null );
-    const [ files, setFiles ] = useState( resources );
     const [ notifs, setNotifs ] = useState( notifications );
+    
+    // const getNotifs = () => {
+    //     axios.get( 'http://localhost:5000/api/notifs' )
+    //     .then( res => setNotifs( res.data ) )
+    //     .catch( err => console.log( err ) );
+    // };
 
-    const getFiles = () => {
-        axios.get( 'http://localhost:5000/api/upload' )
-        .then( res => setFiles( res.data ))
-        .catch( err => console.log( err ) );
-    };
-    
-    const getPosts = () => {
-        axios
-        .get( 'http://localhost:5000/api/posts' )
-        .then( res => setPosts( res.data ))
-        .catch( err => console.log( err ) );
-    };
-    
-    const getNotifs = ( ) => {
-        axios.get( 'http://localhost:5000/api/posts' )
-        .then( res => setNotifs( res.data ) )
-        .catch( err => console.log( err ) );
-    }
-    
-    const addPostChangeHandler = ( e ) => {
-        e.preventDefault();
-        setNewPost( e.target.value );
-    }
-    
-    const handleFileChange = e => {
-        // const file = e.target.files[ 0 ];
-        // console.log( filePath );
-        // const filePath = '/images/logovar.jpg';
-        const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg'};
-        setFilePath( filePath );
-    }
-    
-    const uploadImg = () => {
-        axios.post( 'http://localhost:5000/api/upload', filePath )
-        .catch(err => alert( err ));
-        getFiles();
-    };
-
-    const submitNewPost = ( data ) => {
-         axios.post( 'http://localhost:5000/api/posts', newPost )
-        .then( res => setPosts( res.data ) )
-        .catch( err => console.log( err ) ); 
-     };
-
-     useEffect( () => {
-        getPosts();
-    }, [] ); 
+    // useEffect( () => {
+    //     getNotifs();
+    // }, [ notifs ] ); 
 
     return (
         <Wrapper>
@@ -207,74 +118,17 @@ const Dashboard = ( props ) => {
                 </DrawerContent>
 
                 { ( view === 'newsfeed' || view === 'writings' ) && 
-                    <Posts>
-                        {
-                            posts.map( post => {
-                                return (
-                                    <Post 
-                                        addPostChangeHandler = { addPostChangeHandler }
-                                        submitNewPost = { submitNewPost }
-
-                                        isParentPost = { true }
-                                        showComments = { false }
-                                        
-                                        avatar = { post.avatar }
-                                        username = { post.username }
-
-                                        time = { post.created_at }
-                                        content = { post.content }
-                                        fork_count = { post.commentsCount }
-                                        reaction_count = { post.commentsCount }
-                                    />
-                                )
-                            })
-                        }
-                    </Posts>
+                    <Newsfeed />
                 } 
 
                 { ( view === 'network' ) && 
-                    <Network>
-                        <ConnectionsList>
-                            {
-                                peopleNetwork.map( datum => {
-                                    return (
-                                        <Node 
-                                            name = { datum.name }
-                                            alignmentScore = { datum.alignmentScore }
-                                            classification = { datum.classification }
-                                            requestDate = { datum.requestDate }
-                                            decisionDate = { datum.decisionDate }
-                                        />
-                                    )
-                                })
-                            }
-                        </ConnectionsList>
-                    </Network>
+                    <Network />
                 } 
 
-                { ( view === 'resources' ) && 
-                <div style = {{ margin: '3%' }}>
-                    < input 
-                         type = 'file'
-                         onChange = { handleFileChange }  
-                        />
-                    < button onClick = { uploadImg } style = {{ color: 'red' , height: '30px' }} > Upload </button>
-                    <SavedResources>
-                        {
-                            files.map( datum => {
-                                return (
-                                    // <Paper 
-                                    //     className = { classes.resourceCard } >
-                                    // </Paper>
-                                    < File src = { datum.url } />
-                 
-                                )
-                            })
-                        }
-                  </SavedResources>
+                { ( view == 'resources' ) && 
+                    <Resources />
+                }
 
-                </div>
-                } 
             </Mid>
         </Wrapper>
     )

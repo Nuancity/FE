@@ -103,7 +103,7 @@ const Post = ( props ) => {
             {/* <Tag></Tag> */}
             <Top>
                 <Details>
-                    <Avatar src = { props.avatar } />
+                    <Avatar src = { props.avatar_url } />
                     <p> 
                         { props.username || 'Yanna Faith' }  <br/>
                         <TimeStamp style = { { marginLeft: '2px' } }> { props.timestamp || '12/31/1997 11:00am' } </TimeStamp>
