@@ -72,12 +72,12 @@ const LandingNav = ( props ) => {
                         className = { classes.textLink } 
                         variant = 'text' 
                         size = 'small'
-                        > About
+                        > Dashboard
                     </Button>
                 </Link>
                 <Button 
                     className = { classes.upgradeButton } 
-                    size = 'large' 
+                    size = 'small' 
                     variant = 'outlined'
                     color = 'secondary'
                     onClick = { session.isUserSignedIn() ? props.signOut : props.signIn }

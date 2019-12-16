@@ -14,7 +14,7 @@ const Notification = ( props ) => {
         background-color: white;
         justify-content: center;
         flex-direction: column;
-        border-bottom: solid #4c8893 1px;
+        border-bottom: solid #4c8893 2px;
     }`
 
 

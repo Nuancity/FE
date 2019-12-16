@@ -5,19 +5,17 @@ import { resources } from '../MockData.js';
 import axios from 'axios';
 
 const SavedResources = styled.div`{
-    width: 80vw;
-    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     overflow: scroll;
-    justify-content: center;
-}`
+    justify-content: space-around;
+`
 
 const File = styled.img`{
     width: 150px;
     height: 170px;
-    margin: 4%;
-}`
+    margin: 3%;
+`
 
 const Resources = () => {
     const [ files, setFiles ] = useState( resources );
@@ -30,7 +28,7 @@ const Resources = () => {
     };
 
     const handleFileChange = e => {
-        const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg'};
+        const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg' };
         setFilePath( filePath );
     }
     
@@ -56,13 +54,11 @@ const Resources = () => {
             > Upload 
             </button>
             <SavedResources>
-                {
-                    files.map( datum => {
-                        return (
-                            <File src = { datum.url } />
-                        )
-                    })
-                }
+                { files.map( datum => {
+                    return (
+                        <File src = { datum.url } />
+                    );
+                 }) }
             </SavedResources>
         </div>
     )

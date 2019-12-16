@@ -6,12 +6,11 @@ import Post from '../components/Post.jsx';
 
 const Posts = styled.div`{
     overflow: scroll;
-    width: 80vw;
     display: flex;
     flex-direction: column;
 }`
 
-const Feed = () => {
+const Feed = ( props ) => {
     const [ posts, setPosts ] = useState( [] );
     const [ newPost, setNewPost] = useState( null );
 
@@ -27,7 +26,7 @@ const Feed = () => {
         setNewPost( e.target.value );
     };
 
-    const submitNewPost = ( data ) => {
+    const submitNewPost = () => {
          axios.post( 'http://localhost:5000/api/posts', newPost )
         .then( res => setPosts( res.data ) )
         .catch( err => console.log( err ) ); 
@@ -39,20 +38,20 @@ const Feed = () => {
 
     return (
         <Posts>
-        {
-            posts.map( post => {
-                return (
-                    <Post 
-                        addPostChangeHandler = { addPostChangeHandler }
-                        submitNewPost = { submitNewPost }
-                        isParentPost = { true }
-                        showComments = { false }
-                        timestamp = { post.created_at }
-                        content = { post.content }
-                    />
-                )
-            })
-        }
+        { posts.map( post => {
+            return (
+                <Post 
+                    addPostChangeHandler = { addPostChangeHandler }
+                    submitNewPost = { submitNewPost }
+                    isParentPost = { true }
+                    showComments = { false }
+                    timestamp = { post.created_at }
+                    content = { post.content }
+                    creator_id = { post.creator_id }
+                    users = { props.users }
+                />
+            );
+         }) }
     </Posts>
     )
 }

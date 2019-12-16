@@ -102,3 +102,36 @@ const styles = () => ({
         },
     },
 });
+
+
+Node Component
+------------------
+{/* <p style={{
+    // border: 'solid red 2px',
+    // width: '100px'
+}}> { props.classification } </p>
+<p> { props.alignmentScore } </p> */}
+
+const Top = styled.div`{
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+`
+
+// const Hidden = styled.div`{
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     border: solid purple 2px;
+//     // display: none;
+//     border-radius: 15px;
+// }`
+
+/*
+
+<Bottom>
+    <p> { props.alignmentScore } { props.classification } </p>
+    <p> { props.requestDate } <br/> { props.decisionDate } </p>
+</Bottom>
+
+*/

@@ -43,13 +43,14 @@ const styles = () => ({
 
 const Post = ( props ) => {
     const { classes } = props;
+    const creator = props.users.find( user => user.id === props.creator_id );
 
     return (
         <Wrapper>
             <Details>
-                <Avatar src = { props.avatar_url } />
+                <Avatar src = { creator.avatar_url } />
                 <p> 
-                    { props.username || 'Yanna Faith' }  <br/>
+                    { creator.name }  <br/>
                     <TimeStamp style = { { marginLeft: '2px' } } >
                         { props.timestamp } 
                     </TimeStamp>
