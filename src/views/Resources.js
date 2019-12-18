@@ -22,7 +22,7 @@ const Resources = () => {
     const [ filePath, setFilePath ] = useState( null );
 
     const getFiles = () => {
-        axios.get( 'http://localhost:5000/api/upload' )
+        axios.get( 'https://nuancity.herokuapp.com/api/upload' )
         .then( res => setFiles( res.data ))
         .catch( err => console.log( err ) );
     };
@@ -33,7 +33,7 @@ const Resources = () => {
     }
     
     const uploadFile = () => {
-        axios.post( 'http://localhost:5000/api/upload', filePath )
+        axios.post( 'https://nuancity.herokuapp.com/api/upload', filePath )
         .catch(err => alert( err ));
         getFiles();
     };

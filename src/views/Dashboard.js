@@ -76,7 +76,7 @@ const Dashboard = ( props ) => {
 
     const getUsers = () => {
         axios
-        .get( 'http://localhost:5000/api/users' )
+        .get( 'https://nuancity.herokuapp.com/api/users' )
         .then( res => setUsers( res.data ))
         .catch( err => console.log( err ) );
     }

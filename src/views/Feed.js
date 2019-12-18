@@ -16,7 +16,7 @@ const Feed = ( props ) => {
 
     const getPosts = () => {
         axios
-        .get( 'http://localhost:5000/api/posts' )
+        .get( 'https://nuancity.herokuapp.com/api/posts' )
         .then( res => setPosts( res.data ))
         .catch( err => console.log( err ) );
     };
@@ -27,7 +27,7 @@ const Feed = ( props ) => {
     };
 
     const submitNewPost = () => {
-         axios.post( 'http://localhost:5000/api/posts', newPost )
+         axios.post( 'https://nuancity.herokuapp.com/api/posts', newPost )
         .then( res => setPosts( res.data ) )
         .catch( err => console.log( err ) ); 
     };
