@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import Post from '../components/Post.jsx';
+import NewPost from '../components/NewPost.jsx';
 
 const Posts = styled.div`{
     overflow: scroll;
@@ -12,7 +13,6 @@ const Posts = styled.div`{
 
 const Feed = ( props ) => {
     const [ posts, setPosts ] = useState( [] );
-    const [ newPost, setNewPost] = useState( null );
 
     const getPosts = () => {
         axios
@@ -21,28 +21,18 @@ const Feed = ( props ) => {
         .catch( err => console.log( err ) );
     };
 
-    const addPostChangeHandler = ( e ) => {
-        e.preventDefault();
-        setNewPost( e.target.value );
-    };
-
-    const submitNewPost = () => {
-         axios.post( 'https://nuancity.herokuapp.com/api/posts', newPost )
-        .then( res => setPosts( res.data ) )
-        .catch( err => console.log( err ) ); 
-    };
-    
     useEffect( () => {
         getPosts();
     }, [ posts ] ); 
 
     return (
-        <Posts>
-        { posts.map( post => {
+        <Posts> 
+            {/* <div>
+                <NewPost />
+            </div> */}
+            { posts.map( post => {
             return (
                 <Post 
-                    addPostChangeHandler = { addPostChangeHandler }
-                    submitNewPost = { submitNewPost }
                     isParentPost = { true }
                     showComments = { false }
                     timestamp = { post.created_at }
@@ -50,10 +40,9 @@ const Feed = ( props ) => {
                     creator_id = { post.creator_id }
                     users = { props.users }
                 />
-            );
-         }) }
-    </Posts>
-    )
-}
+            ); }) };
+        </Posts>
+    );
+};
 
 export default Feed;

@@ -135,3 +135,14 @@ const Top = styled.div`{
 </Bottom>
 
 */
+
+
+// const SubmitNewPost = () => {
+//     axios.post(`${URL}/posts`, {title, summary, body})
+//     .then((res) => {
+//         props.history.push('/posts')
+//     })
+//     .catch((err) => {
+//         console.log(err)
+//     })
+// }

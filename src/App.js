@@ -3,9 +3,7 @@ import NewUserPage from './views/NewUserPage.js';
 import Nav from './components/Nav.jsx';
 import { SinglePost } from './views/SinglePost.js';
 import Landing from './views/Landing.js';
-import Topics from './views/Topics.js';
 import Dashboard from './views/Dashboard.js';
-import TopicFeed from './views/TopicFeed.js';
 import { Route } from "react-router-dom";
 import { UserSession, AppConfig } from 'blockstack';
 import './App.css';
@@ -58,14 +56,6 @@ const App =  ( props ) => {
       <Route 
         exact path='/' 
         component = { Landing } 
-      />
-      <Route 
-        path='/topics' 
-        component = { Topics } 
-      />
-      <Route 
-        path='/topic' 
-        component = { TopicFeed } 
       />
       <Route 
         path='/dashboard' 
