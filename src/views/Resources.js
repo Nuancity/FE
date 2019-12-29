@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react'
 import styled from 'styled-components';
-import { resources } from '../MockData.js';
 import axios from 'axios';
 
 const SavedResources = styled.div`{
@@ -18,19 +17,19 @@ const File = styled.img`{
 `
 
 const Resources = () => {
-    const [ files, setFiles ] = useState( resources );
+    const [ files, setFiles ] = useState( null );
     const [ filePath, setFilePath ] = useState( null );
 
     const getFiles = () => {
         axios.get( 'https://nuancity.herokuapp.com/api/upload' )
-        .then( res => setFiles( res.data ))
+        .then( res => setTimeout( setFiles( res.data ), 3000 ))
         .catch( err => console.log( err ) );
     };
 
     const handleFileChange = e => {
         const filePath = { path:'https://yalebooksnetwork.org/yupblog/wp-content/uploads/sites/4/2016/05/fractals.jpg' };
         setFilePath( filePath );
-    }
+    };
     
     const uploadFile = () => {
         axios.post( 'https://nuancity.herokuapp.com/api/upload', filePath )
@@ -39,7 +38,7 @@ const Resources = () => {
     };
 
     useEffect( () => {
-        getFiles();
+        getFiles()
     }, [ files ] ); 
 
     return (
@@ -54,11 +53,18 @@ const Resources = () => {
             > Upload 
             </button>
             <SavedResources>
-                { files.map( datum => {
+                { files ? files.map( datum => {
                     return (
                         <File src = { datum.url } />
                     );
-                 }) }
+                 }) :  
+                < img 
+                    src = '/images/Atom-2.2s-151px.svg'
+                    alt = 'spinner'  
+                    style = {{ 
+                        marginTop: '25%'
+                    }}
+                /> }
             </SavedResources>
         </div>
     )

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import Post from '../components/Post.jsx';
-import NewPost from '../components/NewPost.jsx';
+// import NewPost from '../components/NewPost.jsx';
 
 const Posts = styled.div`{
     overflow: scroll;
@@ -12,25 +12,25 @@ const Posts = styled.div`{
 }`
 
 const Feed = ( props ) => {
-    const [ posts, setPosts ] = useState( [] );
+    const [ posts, setPosts ] = useState( null );
 
     const getPosts = () => {
         axios
         .get( 'https://nuancity.herokuapp.com/api/posts' )
-        .then( res => setPosts( res.data ))
+        .then( res => setTimeout( setPosts( res.data ), 3000 ) )
         .catch( err => console.log( err ) );
     };
 
-    useEffect( () => {
-        getPosts();
-    }, [ posts ] ); 
+    // useEffect( () => {
+    //     getPosts();
+    // }, [ posts ] ); 
 
     return (
         <Posts> 
             {/* <div>
                 <NewPost />
             </div> */}
-            { posts.map( post => {
+            { posts && ( props.users ) ? posts.map( post => {
             return (
                 <Post 
                     isParentPost = { true }
@@ -40,7 +40,14 @@ const Feed = ( props ) => {
                     creator_id = { post.creator_id }
                     users = { props.users }
                 />
-            ); }) };
+        ) } ) : <img 
+                    src = '/images/Atom-2.2s-151px.svg'
+                    alt = 'spinner'  
+                    style = {{ 
+                        marginTop: '25%'
+                    }}
+                /> 
+            }
         </Posts>
     );
 };

@@ -11,7 +11,7 @@ const ConnectionsList = styled.div`{
 const Network = ( props ) => {
     return (
         <ConnectionsList>
-            { props.users.map( datum => {
+            { props.users ? props.users.map( datum => {
                 return (
                     <Node 
                         name = { datum.name }
@@ -22,7 +22,14 @@ const Network = ( props ) => {
                         decisionDate = { datum.decisionDate }
                     />
                 );
-            }) }
+            }) : 
+            <img 
+                src = '/images/Atom-2.2s-151px.svg'
+                alt = 'spinner'  
+                style = {{ 
+                    marginTop: '25%'
+                }}
+            /> }
     </ConnectionsList>
     );
 };

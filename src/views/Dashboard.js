@@ -49,9 +49,14 @@ const LeftContent = styled.div`{
     align-items: space-around;
     overflow: scroll;
 `
-const RightContent = styled.div`
+const MidContent = styled.div`
     width: 55vw;
     overflow: scroll;
+`
+
+const RightContent = styled.div`
+    width: 20vw;
+    background-color: whitesmoke;
 `
 
 const styles = () => ({
@@ -70,16 +75,16 @@ const styles = () => ({
 
 const Dashboard = ( props ) => {
     const { classes } = props;
-    const [ view, setView ] = useState( 'network' );
+    const [ view, setView ] = useState( 'feed' );
     const [ notifs, /* setNotifs */ ] = useState( notifications );
-    const [ users, setUsers ] = useState( [] );
+    const [ users, setUsers ] = useState( null );
 
     const getUsers = () => {
         axios
         .get( 'https://nuancity.herokuapp.com/api/users' )
         .then( res => setUsers( res.data ))
         .catch( err => console.log( err ) );
-    }
+    };
 
     useEffect( () => {
         getUsers();
@@ -128,7 +133,7 @@ const Dashboard = ( props ) => {
                     }) }
                 </LeftContent>
 
-                <RightContent>
+                <MidContent>
                     { ( view === 'feed' ) && 
                         <Feed
                             users = { users } 
@@ -142,6 +147,10 @@ const Dashboard = ( props ) => {
                     { ( view === 'resources' ) && 
                         <Resources />
                     }
+                </MidContent>
+
+                <RightContent>
+
                 </RightContent>
             </Mid>
 

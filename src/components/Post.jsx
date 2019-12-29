@@ -44,8 +44,7 @@ const styles = () => ({
 const Post = ( props ) => {
     const { classes } = props;
     const creator = props.users.find( user => user.id === props.creator_id );
-
-    return (
+    if ( creator ) return (
         <Wrapper>
             <Details>
                 <Avatar src = { creator.avatar_url } />
