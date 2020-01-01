@@ -59,7 +59,7 @@ const Resources = () => {
                     );
                  }) :  
                 < img 
-                    src = '/images/Atom-2.2s-151px.svg'
+                    src = '/images/Atom-1.7s-104px.svg'
                     alt = 'spinner'  
                     style = {{ 
                         marginTop: '25%'
