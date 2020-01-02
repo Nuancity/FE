@@ -21,9 +21,9 @@ const Feed = ( props ) => {
         .catch( err => console.log( err ) );
     };
 
-    // useEffect( () => {
-    //     getPosts();
-    // }, [ posts ] ); 
+    useEffect( () => {
+        getPosts();
+    }, [ posts ] ); 
 
     return (
         <Posts> 

@@ -4,10 +4,11 @@ import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import Notification  from '../components/Notification';
 import { notifications } from '../MockData.js';
-import Resources from './Resources.js';
-import Feed from './Feed.js';
-import Network from './Network.js';
+import Resources from './Resources.jsx';
+import Feed from './Feed.jsx';
+import Network from './Network.jsx';
 import axios from 'axios';
+import IconSmallButton from '../components/IconSmallButton.jsx';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -56,7 +57,10 @@ const MidContent = styled.div`
 
 const RightContent = styled.div`
     width: 20vw;
+    height: 90vh;
     background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
 `
 
 const styles = () => ({
@@ -150,7 +154,7 @@ const Dashboard = ( props ) => {
                 </MidContent>
 
                 <RightContent>
-
+                    <IconSmallButton> <i class="fal fa-plus"></i> </IconSmallButton>
                 </RightContent>
             </Mid>
 
