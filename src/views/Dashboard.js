@@ -7,8 +7,8 @@ import { notifications } from '../MockData.js';
 import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Network from './Network.jsx';
+import Writings from './Writings.js';
 import axios from 'axios';
-import IconSmallButton from '../components/IconSmallButton.jsx';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -50,18 +50,6 @@ const LeftContent = styled.div`{
     align-items: space-around;
     overflow: scroll;
 `
-const MidContent = styled.div`
-    width: 55vw;
-    overflow: scroll;
-`
-
-const RightContent = styled.div`
-    width: 20vw;
-    height: 90vh;
-    background-color: whitesmoke;
-    display: flex;
-    justify-content: center;
-`
 
 const styles = () => ({
     resourceCard: {
@@ -82,6 +70,20 @@ const Dashboard = ( props ) => {
     const [ view, setView ] = useState( 'feed' );
     const [ notifs, /* setNotifs */ ] = useState( notifications );
     const [ users, setUsers ] = useState( null );
+    const [ textEditorStatus, setTextEditorStatus ] = useState( null );
+
+    const RightContent = styled.div`
+        width: ${ textEditorStatus ? '75vw' : '20vw' };
+        margin: ${ textEditorStatus && '0 auto' };
+        height: 90vh;
+        background-color: whitesmoke;
+    `
+
+    const MidContent = styled.div`
+        width: 55vw;
+        overflow: scroll;
+        display: ${ textEditorStatus && 'none' };
+    `
 
     const getUsers = () => {
         axios
@@ -92,7 +94,7 @@ const Dashboard = ( props ) => {
 
     useEffect( () => {
         getUsers();
-    }, [ users ] ); 
+    }, [] ); 
 
     return (
         <Wrapper>
@@ -153,8 +155,21 @@ const Dashboard = ( props ) => {
                     }
                 </MidContent>
 
-                <RightContent>
-                    <IconSmallButton> <i class="fal fa-plus"></i> </IconSmallButton>
+                <RightContent> 
+                    { textEditorStatus ? 
+                    <div>
+                        <Button
+                            onClick = { () =>  setTextEditorStatus( !textEditorStatus ) }
+                            > Exit Editor 
+                        </Button>
+                        <Writings/> 
+                    </div>
+                    :                     
+                    <Button
+                        onClick = { () =>  setTextEditorStatus( !textEditorStatus ) }
+                        > Create new Post 
+                    </Button> 
+                    }
                 </RightContent>
             </Mid>
 

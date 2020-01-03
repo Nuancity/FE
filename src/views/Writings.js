@@ -3,49 +3,39 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { SeeMoreButton, Headings } from '../scomps.js';
+import { Button } from '@material-ui/core';
 
-const NewPost = (props) => {
 
-    const URL = 'https://realityisgod.herokuapp.com';
-    const [body, setBody] = useState("");
-    const [title, setTitle] = useState("");
-    const [summary, setSummary] = useState("");
+const NewPost = ( props ) => {
 
-    const handleBodyChange = (value) =>  {setBody(value)};
-    const handleTitleChange = (e) =>  {setTitle(e.target.value)};
-    const handleSummaryChange = (e) =>  {setSummary(e.target.value)};
+    const URL = 'https://nuancity.herokuapp.com/api';
+    const [ content, setContent ] = useState( "" );
+    const creator_id = 1;
+    const category_id = 1;
+
+    const handleBodyChange = value => { setContent( value ) };
 
     const makeNew = () => {
-        axios.post(`${URL}/posts`, {title, summary, body})
-        .then((res) => {
-            props.history.push('/posts')
+        axios.post( `${ URL }/posts`, { content, creator_id, category_id } )
+        .then( res => {
+            // props.history.push( '/posts' )
+            console.log( res, 'new post created on front end' );
         })
-        .catch((err) => {
-            console.log(err)
+        .catch( err => {
+            console.log( err )
         })
-    }
+    };
   
     return (
         <div className="editor">
-            <Headings>
-                <input 
-                    onChange={handleTitleChange} 
-                    placeholder="title" 
-                />
-                <textarea 
-                    onChange={handleSummaryChange} 
-                    placeholder="summary"
-                />
-            </Headings>
             <ReactQuill 
-                value={body}
+                value = { content }
                 onChange={handleBodyChange}
                 modules={NewPost.modules}
                 formats={NewPost.formats}
                 placeholder="what's on your mind?"
             />
-            <SeeMoreButton onClick={makeNew}>Submit</SeeMoreButton>
+            <Button onClick = { makeNew }>Submit</Button>
         </div>
     )
 }
